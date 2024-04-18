@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package environment.repository;
 
-/**
- *
- * @author usuario
- */
+import environment.model.Video;
+
+import java.util.List;
+
 public interface VideoRepository {
-    
+    List<Video> findAll();
+    Video save(Video save);
+    List<Video> find(String title);
+    List<Video> find(Double fromDuration, Double toDuration);
 }
