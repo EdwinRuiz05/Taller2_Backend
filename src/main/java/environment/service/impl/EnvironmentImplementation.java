@@ -1,4 +1,4 @@
-package environment.service.implementation;
+package environment.service.impl;
 
 import environment.model.Video;
 import environment.model.View;
