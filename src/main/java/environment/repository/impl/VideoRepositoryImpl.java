@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class VideoRepositoryImpl implements VideoRepository {
-    private static final List<Video> videos = new ArrayList<Video>();
+    private static final List<Video> videos = new ArrayList<>();
 
     @Override
     public List<Video> findAll() {
