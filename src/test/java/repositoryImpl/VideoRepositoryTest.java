@@ -1,4 +1,4 @@
-package environment;
+package repositoryImpl;
 
 import environment.model.Video;
 import environment.repository.VideoRepository;
@@ -38,14 +38,14 @@ public class VideoRepositoryTest {
     @Test
     void searchByTitle() {
         List<Video> videos = videoRepository.find("title");
-        List<Video> expectedVideos = new ArrayList<>();  // at this moment the list returned will be void
+        List<Video> expectedVideos = new ArrayList<>();  
         assertEquals(expectedVideos, videos);
     }
     
     @Test
     void searchByDuration() {
         List<Video> videos = videoRepository.find(1.0, 3.5);
-        List<Video> expectedVideos = new ArrayList<>(); // at this moment the list returned will be void
+        List<Video> expectedVideos = new ArrayList<>(); 
         assertEquals(expectedVideos, videos);
     }
 }
