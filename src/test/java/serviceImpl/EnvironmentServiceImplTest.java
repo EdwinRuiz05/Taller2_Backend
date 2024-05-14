@@ -13,8 +13,7 @@ import environment.service.impl.EnvironmentServiceImpl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -38,9 +37,7 @@ public class EnvironmentServiceImplTest {
    
    @Test
     void findAllException() {
-        assertThrows(VideoNotFoundException.class, () -> {
-            environmentservice.findAllVideos();
-        });
+        assertThrows(VideoNotFoundException.class, () -> {environmentservice.findAllVideos();});
     }
     
     @Test
@@ -50,5 +47,34 @@ public class EnvironmentServiceImplTest {
         environmentservice.add(video);
         List<Video> videos = environmentservice.findAllVideos();
         assertEquals(expected, videos);
+    }
+    
+    @Test
+    void findbyTitleVideoException(){
+        assertThrows(VideoNotFoundException.class, () -> {environmentservice.find("title");});
+    }
+    
+    @Test
+    void findByDurationVideoException(){
+        assertThrows(VideoNotFoundException.class, () -> {environmentservice.find(0.0, 4.0);});
+    }
+    
+    @Test
+    void findByTitleVideo()throws VideoNotFoundException {
+        List<Video> expected = new ArrayList<>();
+        expected.add(video);
+        environmentservice.add(video);
+        List<Video> result = environmentservice.find(video.title());
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    void findByDurationVideo() throws VideoNotFoundException {
+        List<Video> expected = new ArrayList<>();
+        expected.add(video);
+        environmentservice.add(video);
+        List<Video> result = environmentservice.find(0.0, video.duration());
+        assertEquals(expected, result);
+        
     }
 }
