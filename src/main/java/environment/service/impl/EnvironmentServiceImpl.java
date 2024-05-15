@@ -5,10 +5,9 @@ import environment.model.Video;
 import environment.model.View;
 import environment.repository.VideoRepository;
 import environment.repository.ViewRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 import environment.service.EnvironmentService;
+
+import java.util.List;
 
 public class EnvironmentServiceImpl implements EnvironmentService{
     //Atributos

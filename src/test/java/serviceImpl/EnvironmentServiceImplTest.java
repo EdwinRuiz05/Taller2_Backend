@@ -2,79 +2,67 @@ package serviceImpl;
 
 import environment.exception.VideoNotFoundException;
 import environment.model.Video;
-import environment.model.View;
 import environment.repository.VideoRepository;
 import environment.repository.ViewRepository;
-import environment.repository.impl.VideoRepositoryImpl;
-import environment.repository.impl.ViewsRepositoryImpl;
 import environment.service.EnvironmentService;
 import environment.service.impl.EnvironmentServiceImpl;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.Mockito;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.doReturn;
 
 public class EnvironmentServiceImplTest {
-    EnvironmentService environmentservice;
-    VideoRepository videorepository;
-    ViewRepository viewsrepository;
-    Video video;
-    View views;
-    
-   @BeforeEach
-   void setUp(){
-       video = new Video("12345", "Title", "Description", 5.5);
-       views = new View("Edwin Ruiz", LocalDateTime.now(), 19, video);
-       videorepository = new VideoRepositoryImpl();
-       viewsrepository = new ViewsRepositoryImpl();
-       environmentservice = new EnvironmentServiceImpl(videorepository, viewsrepository);
-   }
-   
-   @Test
-    void findAllException() {
-        assertThrows(VideoNotFoundException.class, () -> {environmentservice.findAllVideos();});
-    }
-    
+    VideoRepository videoRepository = Mockito.mock();
+    ViewRepository viewsRepository = Mockito.mock();
+    EnvironmentService environmentService = new EnvironmentServiceImpl(videoRepository, viewsRepository);
+    List<Video> videos = List.of(
+            new Video("01", "video 1", "This is a new video", 3.5),
+            new Video("02", "video 2", "This is a new video", 4.5),
+            new Video("03", "short 3", "This is a new video", 3.4),
+            new Video("04", "short 4", "This is a new video", 2.0),
+            new Video("05", "video 5", "This is a new video", 5.1)
+    );
+
     @Test
-    void findAll() throws VideoNotFoundException{
-        List<Video> expected = new ArrayList<>();
-        expected.add(video);
-        environmentservice.add(video);
-        List<Video> videos = environmentservice.findAllVideos();
-        assertEquals(expected, videos);
+    void fidAllException() {
+        assertThrows(VideoNotFoundException.class, () -> environmentService.findAllVideos());
     }
-    
+
     @Test
-    void findbyTitleVideoException(){
-        assertThrows(VideoNotFoundException.class, () -> {environmentservice.find("title");});
+    void findAll() throws VideoNotFoundException {
+        doReturn(videos).when(videoRepository).findAll();
+        var target = videos.containsAll(environmentService.findAllVideos());
+        assertTrue(target);
     }
-    
+
     @Test
-    void findByDurationVideoException(){
-        assertThrows(VideoNotFoundException.class, () -> {environmentservice.find(0.0, 4.0);});
+    void findByTitleVideoException() {
+        assertThrows(VideoNotFoundException.class, () -> environmentService.find("title"));
     }
-    
+
     @Test
-    void findByTitleVideo()throws VideoNotFoundException {
-        List<Video> expected = new ArrayList<>();
-        expected.add(video);
-        environmentservice.add(video);
-        List<Video> result = environmentservice.find(video.title());
-        assertEquals(expected, result);
+    void findByDurationVideoException() {
+        assertThrows(VideoNotFoundException.class, () -> environmentService.find(0.0, 5.0));
     }
-    
+
+    @Test
+    void findByTitleVideo() throws VideoNotFoundException {
+        var parameter = "video";
+        var expected = videos.stream().filter(p -> p.title().contains(parameter)).toList();
+        doReturn(expected).when(videoRepository).find(parameter);
+        var result = environmentService.find(parameter).containsAll(expected);
+        assertTrue(result);
+    }
+
     @Test
     void findByDurationVideo() throws VideoNotFoundException {
-        List<Video> expected = new ArrayList<>();
-        expected.add(video);
-        environmentservice.add(video);
-        List<Video> result = environmentservice.find(0.0, video.duration());
-        assertEquals(expected, result);
-        
+        var expected = videos.stream().filter(p -> p.duration() <= 5.0 && p.duration() >= 3.0).toList();
+        doReturn(expected).when(videoRepository).find(3.0, 5.0);
+        var target = environmentService.find(3.0, 5.0).containsAll(expected);
+        assertTrue(target);
     }
 }
