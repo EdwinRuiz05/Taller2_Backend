@@ -7,15 +7,14 @@ import java.util.List;
 
 public class EnvironmentController {
     
-    private final EnvironmentServiceImpl environmentService;
+    private final EnvironmentService environmentService;
     
-    public EnvironmentController(EnvironmentServiceImpl environmentServiceImpl) {
-        this.environmentService = environmentServiceImpl;
+    public EnvironmentController(EnvironmentService environmentService) {
+        this.environmentService = environmentService;
     }
     
     public List<Video> find_allVideos() throws VideoNotFoundException {
-        List<Video> videos = null;
-        videos = environmentService.findAllVideos();
+        List<Video> videos = environmentService.findAllVideos();
         return videos;
     }
 }
