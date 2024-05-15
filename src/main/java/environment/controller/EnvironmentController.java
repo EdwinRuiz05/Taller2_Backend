@@ -9,13 +9,12 @@ public class EnvironmentController {
     
     private final EnvironmentServiceImpl environmentService;
     
-    public EnvironmentController(EnvironmentServiceImpl environmentServiceImpl) {
-        this.environmentService = environmentServiceImpl;
+    public EnvironmentController(EnvironmentServiceImpl environmentService) {
+        this.environmentService = environmentService;
     }
     
-    public List<Video> find_allVideos() throws VideoNotFoundException {
-        List<Video> videos = null;
-        videos = environmentService.findAllVideos();
+    public List<Video> findllVideos() throws VideoNotFoundException {
+        List<Video> videos = environmentService.findAllVideos();
         return videos;
     }
 }
