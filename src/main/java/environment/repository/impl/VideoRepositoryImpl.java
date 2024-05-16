@@ -8,34 +8,43 @@ import java.util.List;
 
 
 public class VideoRepositoryImpl implements VideoRepository {
-    private static final List<Video> videos = new ArrayList<>();
+
+    private final List<Video> videos;
+
+    public VideoRepositoryImpl() {
+        videos = new ArrayList<>();
+    }
 
     @Override
     public List<Video> findAll() {
         return videos;
     }
-    
-    @Override
-    public Video add(Video video) {
-        if(videos.add(video)){
-            return video;
-        }
-        return  null;
-    }
 
     @Override
-    public Video save(Video save) {
-        return null;
+    public Video save(Video video) {
+        this.videos.add(video);
+        return video;
     }
 
     @Override
     public List<Video> find(String title) {
-        return findAll().stream().filter(video -> video.title().equals(title)).toList();
-
+        List<Video> filteredVideos = new ArrayList<>();
+        for(Video video : videos){
+            if(video.title().contains(title)){
+                filteredVideos.add(video);
+            }
+        }
+        return filteredVideos;
     }
 
     @Override
     public List<Video> find(Double fromDuration, Double toDuration) {
-        return List.of();
+        List<Video> filteredVideos = new ArrayList<>();
+        for(Video video : videos){
+            if(video.duration() >= fromDuration && video.duration() <= toDuration){
+                filteredVideos.add(video);
+            }
+        }
+        return filteredVideos;
     }
 }
