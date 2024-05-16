@@ -9,49 +9,60 @@ import environment.service.EnvironmentService;
 
 import java.util.List;
 
-public class EnvironmentServiceImpl implements EnvironmentService{
+public class EnvironmentServiceImpl implements EnvironmentService {
     //Atributos
     private final VideoRepository videorepository;
     private final ViewRepository viwesrepository;
-    
+
     //Metodos
-    public EnvironmentServiceImpl(VideoRepository videorepository, ViewRepository viwesrepository){
-      this.videorepository = videorepository;
-      this.viwesrepository = viwesrepository;
+    public EnvironmentServiceImpl(VideoRepository videorepository, ViewRepository viwesrepository) {
+        this.videorepository = videorepository;
+        this.viwesrepository = viwesrepository;
     }
 
     @Override
-    public List<Video> findAllVideos() throws VideoNotFoundException{
+    public List<Video> findAllVideos() throws VideoNotFoundException {
         List<Video> videos = videorepository.findAll();
-        if(videorepository.findAll().isEmpty()){
+        if(videos.isEmpty()){
             throw new VideoNotFoundException();
         }
-        return  videos;
+        else{
+            return videos;
+        }
     }
 
     @Override
     public Video add(Video video) {
-        return videorepository.add(video);
+        Video videoAdd = videorepository.save(video);
+        return videoAdd;
     }
 
     @Override
     public View add(View view) {
-        return viwesrepository.add(view);
+        View viewAdd = viwesrepository.add(view);
+        return viewAdd;
     }
 
     @Override
     public List<Video> find(String title) throws VideoNotFoundException {
-        if(videorepository.find(title).isEmpty()){
+        List<Video> videos = videorepository.find(title);
+        if(videos.isEmpty()){
             throw new VideoNotFoundException();
         }
-        return videorepository.find(title);
+        else{
+            return videos;
+        }
     }
 
     @Override
-    public List<Video> find(Double fromDuration, Double toDuration) throws VideoNotFoundException{
-        if(videorepository.find(fromDuration, toDuration).isEmpty()){
+    public List<Video> find(Double fromDuration, Double toDuration) throws VideoNotFoundException {
+        List<Video> videos = videorepository.find(fromDuration, toDuration);
+        if(videos.isEmpty()){
             throw new VideoNotFoundException();
         }
-        return videorepository.find(fromDuration, toDuration);
+        else{
+            return videos;
+        }
     }
 }
+
