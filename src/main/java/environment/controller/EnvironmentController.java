@@ -2,12 +2,14 @@ package environment.controller;
 
 import environment.exception.VideoNotFoundException;
 import environment.model.Video;
+import environment.repository.impl.VideoRepositoryImpl;
+import environment.repository.impl.ViewsRepositoryImpl;
 import environment.service.impl.EnvironmentServiceImpl;
-import static java.lang.Math.log;
+
 import java.util.Collections;
 import java.util.List;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class EnvironmentController {
     private final EnvironmentServiceImpl environmentService;
     
     public EnvironmentController(EnvironmentServiceImpl environmentService) {
-        this.environmentService = environmentService;
+        this.environmentService = new EnvironmentServiceImpl(new VideoRepositoryImpl(), new ViewsRepositoryImpl());
     }
     
     @GetMapping(value = "/video")

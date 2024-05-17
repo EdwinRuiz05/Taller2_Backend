@@ -55,7 +55,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     }
 
     @Override
-    public List<Video> find(Double fromDuration, Double toDuration) throws VideoNotFoundException {
+    public List<Video> find(double fromDuration, double toDuration) throws VideoNotFoundException {
         List<Video> videos = videorepository.find(fromDuration, toDuration);
         if(videos.isEmpty()){
             throw new VideoNotFoundException();
