@@ -6,7 +6,9 @@ import environment.repository.VideoRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class VideoRepositoryImpl implements VideoRepository {
 
     private final List<Video> videos;
