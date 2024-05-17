@@ -9,6 +9,9 @@ import environment.service.EnvironmentService;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class EnvironmentServiceImpl implements EnvironmentService {
     //Atributos
     private final VideoRepository videorepository;

@@ -4,6 +4,8 @@ import environment.model.Video;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 public interface VideoRepository {
     List<Video> findAll();
     Video save(Video save);
