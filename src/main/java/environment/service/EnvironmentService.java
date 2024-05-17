@@ -11,5 +11,7 @@ public interface EnvironmentService {
     Video add(Video video);
     View add(View view);
     List<Video> find(String title) throws VideoNotFoundException;
-    List<Video> find(Double fromDuration, Double toDuration) throws VideoNotFoundException;
+    List<Video> find(double fromDuration, double toDuration) throws VideoNotFoundException;
+
+
 }
