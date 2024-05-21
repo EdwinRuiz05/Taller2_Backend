@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
 public class VideoRepositoryImpl implements VideoRepository {
 
     private final List<Video> videos;

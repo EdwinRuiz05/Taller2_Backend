@@ -74,7 +74,7 @@ public class EnvironmentServiceImplTest {
 
     @Test
     void when_find_forTitle_should_be_returned_succesfully() throws VideoNotFoundException {
-        mockVideoRepositoryFind("Hilmer", List.of(exampleVideo6));
+        mockVideoRepositoryFind("Hilmer", List.of(exampleVideo6));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         List<Video> videos = environmentService.find("Hilmer");
         assertEquals(1, videos.size());
         assertEquals(exampleVideo6, videos.get(0));

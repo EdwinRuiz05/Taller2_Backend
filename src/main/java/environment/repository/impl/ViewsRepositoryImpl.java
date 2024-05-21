@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
 public class ViewsRepositoryImpl implements ViewRepository {
     private final List<View> views;
 

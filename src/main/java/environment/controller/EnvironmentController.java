@@ -4,6 +4,7 @@ import environment.exception.VideoNotFoundException;
 import environment.model.Video;
 import environment.repository.impl.VideoRepositoryImpl;
 import environment.repository.impl.ViewsRepositoryImpl;
+import environment.service.EnvironmentService;
 import environment.service.impl.EnvironmentServiceImpl;
 
 import java.util.Collections;
@@ -19,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EnvironmentController {
     
-    private final EnvironmentServiceImpl environmentService;
-    
-    public EnvironmentController(EnvironmentServiceImpl environmentService) {
-        this.environmentService = new EnvironmentServiceImpl(new VideoRepositoryImpl(), new ViewsRepositoryImpl());
+    private final EnvironmentService environmentService;
+
+    public EnvironmentController() {
+        this.environmentService = new EnvironmentServiceImpl( new VideoRepositoryImpl(), new ViewsRepositoryImpl() );
     }
     
     @GetMapping(value = "/video")
